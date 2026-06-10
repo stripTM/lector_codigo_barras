@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #111827;
+  color: #f9fafb;
+}
+
+.scanner {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.scanner__title {
+  font-size: 1.2rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.scanner__video {
+  width: 100%;
+  border-radius: 12px;
+  background: black;
+}
+
+.scanner__status {
+  min-height: 3rem;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.scanner__status--success {
+  color: #4ade80;
+}
+
+.scanner__status--error {
+  color: #f87171;
+}
+
+.scanner__id {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}

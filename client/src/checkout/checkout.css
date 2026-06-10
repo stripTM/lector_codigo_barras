@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.checkout {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.checkout__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.checkout__title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.checkout__status {
+  font-size: 0.85rem;
+}
+
+.checkout__status--online {
+  color: #15803d;
+}
+
+.checkout__status--offline {
+  color: #b91c1c;
+}
+
+.checkout__error {
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.button {
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #e5e7eb;
+}
+
+.button:hover {
+  filter: brightness(0.95);
+}
+
+.button--primary {
+  background: #2563eb;
+  color: white;
+}
+
+.button--danger {
+  background: #dc2626;
+  color: white;
+}
+
+.barcode-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.barcode-form__input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+.shopping-list {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.shopping-list th,
+.shopping-list td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.shopping-list__units {
+  text-align: center;
+  min-width: 3rem;
+}
+
+.shopping-list__actions {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: flex-end;
+}
+
+.shopping-list__empty {
+  text-align: center;
+  color: #6b7280;
+  padding: 2rem;
+}
