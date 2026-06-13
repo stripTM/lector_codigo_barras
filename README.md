@@ -60,6 +60,36 @@ pnpm dev          # servidor en :3000 y cliente en :5173 (proxy /api y /ws)
 Un lector de pistola USB también puede integrarse conectándose al WebSocket y
 enviando el mismo mensaje `scanner.scan`.
 
+## Despliegue en Fly.io
+
+En producción el **servidor sirve también el frontend compilado** (`client/dist`),
+de modo que API, WebSocket y estáticos comparten origen: la caja queda en `/` y
+el escáner en `/scanner.html`, sin configuración extra en el cliente. El proyecto
+incluye `Dockerfile`, `.dockerignore` y `fly.toml` listos para usar.
+
+```bash
+# 1) Autentícate (interactivo)
+fly auth login
+
+# 2) Crea la app sin desplegar aún, reutilizando el fly.toml del repo.
+#    Elige un nombre único; si está cogido, cámbialo en fly.toml.
+fly launch --no-deploy --copy-config --name lector-codigo-barras --region mad
+
+# 3) Despliega y abre
+fly deploy
+fly open            # caja en /
+```
+
+- **Escáner del móvil:** `https://<tu-app>.fly.dev/scanner.html`. `getUserMedia`
+  exige HTTPS, que Fly proporciona automáticamente en `*.fly.dev`.
+- **Coste cero:** con `auto_stop_machines` la VM se apaga sin tráfico y rearranca
+  con la primera petición (a costa de un arranque en frío de unos segundos).
+- **Estado en memoria:** el carrito se reinicia al apagarse o redesplegar. Para
+  persistencia real, implementa el puerto [CartRepository](server/src/domain/ports/CartRepository.ts)
+  con SQLite + un volumen Fly.
+- **Una sola máquina:** el carrito y el WebSocket se comparten en un único
+  proceso; no escales a varias instancias o el estado se dividiría.
+
 ## Tests
 
 ```bash

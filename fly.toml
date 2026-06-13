@@ -1,0 +1,22 @@
+# fly.toml app configuration file generated for lector-codigo-barras on 2026-06-13T13:07:07+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "lector-codigo-barras"
+primary_region = "cdg"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  # Apaga la máquina sin tráfico y la rearranca al llegar una petición (coste 0;
+  # el carrito en memoria se reinicia al apagarse).
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+# IMPORTANTE: el carrito vive en memoria y se comparte por WebSocket, así que
+# debe haber UNA sola máquina. No escales a varias o el estado se dividiría.
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"

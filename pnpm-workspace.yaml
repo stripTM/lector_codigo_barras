@@ -2,3 +2,8 @@ packages:
   - shared
   - server
   - client
+
+# Autoriza el script de instalación de esbuild (lo usan tsx y vite).
+# pnpm v10+ bloquea estos scripts por seguridad salvo que se listen aquí.
+onlyBuiltDependencies:
+  - esbuild

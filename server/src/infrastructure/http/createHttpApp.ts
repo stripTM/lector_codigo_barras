@@ -2,11 +2,20 @@ import express, { type Express, type NextFunction, type Request, type Response }
 import type { ShoppingCartService } from '../../application/ShoppingCartService.js';
 import { InvalidBarcodeError, ProductNotInCartError } from '../../domain/errors.js';
 
+export interface HttpAppOptions {
+  /**
+   * Carpeta con el frontend compilado (`client/dist`). Si se indica, el mismo
+   * servidor sirve la pantalla de caja (`/`) y el escáner (`/scanner.html`),
+   * de modo que API, WebSocket y estáticos comparten origen (útil en producción).
+   */
+  staticDir?: string;
+}
+
 /**
  * Adaptador de entrada HTTP: expone los casos de uso como API REST
  * para la pantalla de caja.
  */
-export function createHttpApp(cartService: ShoppingCartService): Express {
+export function createHttpApp(cartService: ShoppingCartService, options: HttpAppOptions = {}): Express {
   const app = express();
   app.use(express.json());
 
@@ -42,6 +51,12 @@ export function createHttpApp(cartService: ShoppingCartService): Express {
     await cartService.startNewCustomer();
     response.status(204).end();
   });
+
+  // En producción servimos el frontend compilado desde el mismo origen.
+  // Va después de la API para que `/api/*` nunca quede ensombrecido por un estático.
+  if (options.staticDir) {
+    app.use(express.static(options.staticDir));
+  }
 
   app.use((error: unknown, _request: Request, response: Response, _next: NextFunction) => {
     if (error instanceof InvalidBarcodeError) {

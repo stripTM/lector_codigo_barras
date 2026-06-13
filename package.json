@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Terminal de cobro de supermercado: servidor hexagonal + pantalla de caja + escáner móvil",
   "type": "module",
+  "packageManager": "pnpm@10.33.2",
   "scripts": {
     "dev": "pnpm --parallel --filter @checkout/server --filter @checkout/client dev",
     "build": "pnpm -r build",
